@@ -1,0 +1,16 @@
+.el-dialog {
+  .el-dialog__header {
+    @include flex-center(y);
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px 20px;
+    .el-dialog__title {
+      font-size: 14px;
+    }
+    .el-dialog__headerbtn {
+      top: 16px;
+    }
+  }
+  .el-dialog__body {
+    padding: 20px;
+  }
+}

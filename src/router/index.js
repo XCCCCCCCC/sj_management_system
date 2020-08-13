@@ -1,27 +1,59 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/target/member',
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/target',
+    name: 'target',
+    redirect: '/target/member',
+    meta: { requireAuth: true },
+    component: () => import(/* webpackChunkName: "target" */ '../views/target/index.vue'),
+    children: [
+      {
+        path: 'member',
+        name: 'targetMember',
+        meta: { requireAuth: true },
+        component: () => import(/* webpackChunkName: "targetMember" */ '../views/target/member.vue'),
+      },
+      {
+        path: 'app',
+        name: 'targetApp',
+        meta: { requireAuth: true },
+        component: () => import(/* webpackChunkName: "targetApp" */ '../views/target/app.vue'),
+      },
+    ],
+  },
+  {
+    path: '/order',
+    name: 'order',
+    redirect: '/order/list',
+    meta: { requireAuth: true },
+    component: () => import(/* webpackChunkName: "order" */ '../views/order/index.vue'),
+    children: [
+      {
+        path: 'list',
+        name: 'orderList',
+        meta: { requireAuth: true },
+        component: () => import(/* webpackChunkName: "orderList" */ '../views/order/list.vue'),
+      },
+      {
+        path: 'operation',
+        name: 'orderOperation',
+        meta: { requireAuth: true },
+        component: () => import(/* webpackChunkName: "orderOperation" */ '../views/order/operation.vue'),
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 
 export default router
